@@ -1,0 +1,80 @@
+# TCRT — Office-31 controlled transductive benchmark.
+# Frozen CLIP ViT-B/16, 5 matched seeds, 6 directed transfers.
+experiment_name: office31
+benchmark: office31
+data_root: ./data
+output_dir: ./outputs/office31
+transfers:
+  - [amazon, dslr]
+  - [amazon, webcam]
+  - [dslr, amazon]
+  - [dslr, webcam]
+  - [webcam, amazon]
+  - [webcam, dslr]
+seeds: [0, 1, 2, 3, 4]
+num_classes: 31
+feat_dim: 512
+eval_mode: accuracy
+
+# Backbone (controlled protocol)
+backend: transformers
+clip_model: openai/clip-vit-base-patch16
+n_ctx: 16
+ctx_init: "a photo of a"
+image_size: 224
+text_logit_scale: 100.0
+
+# Decomposition
+semantic_rank: 64          # r0
+rank_eps: 0.001            # epsilon for rank_e(T)
+residual_rank: 16          # m
+init_perturb: 0.001
+j_alt: 5                   # alternating block updates
+lr_block: 0.1
+alpha: 1.0                 # L_text weight in L_fac
+beta: 0.001                # ||A||^2 + ||B||^2
+xi: 0.001                  # ||E||_{2,1}
+gamma: 0.01                # ||V^T B||_F^2
+
+# Certificate
+rho: 0.1                   # CVaR tail fraction
+eta: 0.1                   # transport-stability scale
+kappa_cert: 0.0            # margin offset
+zeta: 0.1                  # margin scale
+kappa_donor: 0.05          # target-donor margin threshold
+kappa_r: 2.0               # residual/semantic energy-ratio bound
+j_min: 1                   # minimum donor count
+queue_capacity: 4096
+energy_bins: 10
+pi_min: 0.4                # annealed class-wise retained ratio
+pi_max: 0.8
+lambda_cf: 1.0             # L_cf-src weight in L_cert
+
+# Graph
+anchors_per_class: 2       # M_c
+anchor_momentum: 0.99
+tau_g: 10.0
+spectral_p: 1
+eps_deg: 1.0e-6
+
+# Optimization
+lr: 0.003
+weight_decay: 0.0005
+momentum: 0.9
+batch_size: 32
+iterations_per_epoch: 1000
+warmup_epochs: 10
+adapt_epochs: 20
+lambda_ent: 1.0
+lambda_fac: 1.0
+lambda_priv: 1.0
+lambda_leak: 0.1
+lambda_cert: 1.0
+lambda_tail: 1.0
+lambda_sup: 1.0
+use_disentangle: true
+use_counterfactual: true
+
+log_every: 100
+save_every: 1000000        # save only the final checkpoint by default
+device: gpu
