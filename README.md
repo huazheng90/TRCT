@@ -119,3 +119,4 @@ python main.py diagnose --config configs/tcrt/diagnostics.yaml \
 
 This repository is released under the Apache-2.0 license. The CLIP model
 weights and benchmark datasets retain their own licenses.
+# TRCT
