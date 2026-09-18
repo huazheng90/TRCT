@@ -18,7 +18,6 @@ TCRT is a research code release for reliability-aware vision–language UDA on a
 - Data preparation helper, launch scripts, result aggregation:
   `tools/prepare_data.py`, `tools/run_all.sh`, `tools/analyze_results.py`
 - Reproduction notes: `docs/REPRODUCE.md`
-- CPU smoke test: `tests/test_smoke.py`
 
 ## What Is Not Included
 
