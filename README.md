@@ -45,7 +45,6 @@ TCRT/
 │   ├── eval.py               # benchmark driver (transductive / inductive)
 │   ├── diagnostics.py        # ranking / coverage-risk / graph / probes / ...
 │   └── utils.py              # seeds, metrics, paired intervals
-├── tests/test_smoke.py       # CPU smoke test (no weights, no images)
 └── tools/
     ├── prepare_data.py       # dataset layout + DomainNet lists
     ├── run_all.sh            # run all main benchmarks
@@ -84,22 +83,19 @@ pip install -r requirements.txt
 # 1. Data (see tools/prepare_data.py for layout and download sources)
 python tools/prepare_data.py --validate
 
-# 2. Sanity check on CPU (mock backend, no weights/images)
-python tests/test_smoke.py
-
-# 3. Pre-extract frozen CLIP features (requires the transformers weights)
+# 2. Pre-extract frozen CLIP features (requires the transformers weights)
 python main.py extract --config configs/tcrt/office_home.yaml
 
-# 4. Run one transfer
+# 3. Run one transfer
 python main.py run --config configs/tcrt/office_home.yaml --src Art --tgt Clipart
 
-# 5. Run a full benchmark (all transfers x five seeds)
+# 4. Run a full benchmark (all transfers x five seeds)
 python main.py benchmark --config configs/tcrt/office_home.yaml
 
-# 6. Everything (five main benchmarks)
+# 5. Everything (five main benchmarks)
 ./tools/run_all.sh
 
-# 7. Mechanism analyses on saved checkpoints (no retraining)
+# 6. Mechanism analyses on saved checkpoints (no retraining)
 python main.py diagnose --config configs/tcrt/diagnostics.yaml \
     --kind ranking,coverage_risk,stage,graph,probe,additivity,transport,properties
 ```
