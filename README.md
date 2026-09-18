@@ -1,20 +1,9 @@
 # TCRT
 
 **Text-Certified Residual Transport for Reliable Vision–Language Unsupervised Domain Adaptation**
+<img width="2144" height="936" alt="TCRT" src="https://github.com/user-attachments/assets/d8b52494-0fc2-461d-b76d-4cfd968e2971" />
 
-TCRT is a research code release for reliability-aware vision–language UDA on a
-frozen CLIP ViT-B/16 backbone. It audits learned domain residuals: features are
-decomposed into a text-anchored semantic component and a low-rank domain
-residual; same-class, energy-matched residuals are transported across domains;
-and the change in the **frozen text posterior** under transport produces a
-reliability certificate that controls pseudo-label supervision, semantic-anchor
-updates, and a certificate-filtered bipartite graph spectral regularizer.
-
-The current repository is a clean open-source release: it contains the full
-method implementation, dataset loaders, experiment configs, diagnostics, and
-reproduction scripts. It does **not** bundle CLIP model weights, benchmark
-images, training outputs, or logs — those are external assets (same policy as
-the reference release this layout follows).
+TCRT is a research code release for reliability-aware vision–language UDA on a frozen CLIP ViT-B/16 backbone. It audits learned domain residuals: features are decomposed into a text-anchored semantic component and a low-rank domain residual; same-class, energy-matched residuals are transported across domains; and the change in the **frozen text posterior** under transport produces a reliability certificate that controls pseudo-label supervision, semantic-anchor updates, and a certificate-filtered bipartite graph spectral regularizer.  The current repository is a clean open-source release: it contains the full method implementation, dataset loaders, experiment configs, diagnostics, and reproduction scripts. It doesn't bundle CLIP model weights, benchmark images, training outputs, or logs — those are external assets (same policy as the reference release this layout follows).
 
 ## What Is Included
 
@@ -120,3 +109,4 @@ python main.py diagnose --config configs/tcrt/diagnostics.yaml \
 This repository is released under the Apache-2.0 license. The CLIP model
 weights and benchmark datasets retain their own licenses.
 # TRCT
+
